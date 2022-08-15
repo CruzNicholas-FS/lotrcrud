@@ -49,7 +49,7 @@ router.patch("/:id", getCharacter, async (req, res)=>{
         res.character.name=req.body.name
     }
     if (req.body.class!=null) {
-        res.character.class=req.body.race
+        res.character.race=req.body.race
     }
     try {
         const updatedStudent=await res.character.save();
