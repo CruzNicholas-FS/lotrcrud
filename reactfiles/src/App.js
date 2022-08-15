@@ -7,7 +7,7 @@ function App() {
   return (
     <Router>
       <Routes>
-      <Route path="/students/:id" exact element={<Character/>} />
+      <Route path="/characters/:id" exact element={<Character/>} />
         <Route path="/dashboard" exact element={<Dashboard/>} />
         <Route path="/" exact element={<Home/>} />
       </Routes>

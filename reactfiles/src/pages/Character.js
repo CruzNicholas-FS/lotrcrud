@@ -3,7 +3,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import '../App.css';
 
 function Character() {
-  const [students, setStudents]=useState(null);
+  const [characters, setCharacters]=useState(null);
   const [loading, setLoading]=useState(false);
   const [error, setError]=useState(null);
 
@@ -21,7 +21,7 @@ function Character() {
   let ignore=false;
   useEffect(()=>{
     if (!ignore) {
-      getStudent();
+      getCharacter();
     }
 
     return ()=>{
@@ -29,7 +29,7 @@ function Character() {
     }
   }, [])
 
-  const getStudent = async ()=>{
+  const getCharacter = async ()=>{
     setLoading(true)
     try {
       await fetch(`${API_BASE}/characters/${id}`)
@@ -45,14 +45,14 @@ function Character() {
     }
   }
 
-  const deleteStudent=async()=>{
+  const deleteCharacter=async()=>{
     try {
       await fetch(`${API_BASE}/characters/${id}`,{
         method:"DELETE"
       })
       .then(res=>res.json())
       .then(data=>{
-        setStudents(data)
+        setCharacters(data)
         navigate("/dashboard", {replace:true})
       })
     } catch (error) {
@@ -62,7 +62,7 @@ function Character() {
     }
   }
 
-  const updateStudent=async()=>{
+  const updateCharacter=async()=>{
     try {
       await fetch(`${API_BASE}/characters/${id}`,{
         method:"PATCH",
@@ -73,7 +73,7 @@ function Character() {
       })
       .then(res=>res.json())
       .then(data=>{
-        setStudents(data)
+        setCharacters(data)
         navigate("/dashboard", {replace:true})
       })
     } catch (error) {
@@ -85,7 +85,7 @@ function Character() {
 
   const handleSubmit=(event)=>{
     event.preventDefault();
-    updateStudent();
+    updateCharacter();
   }
 
   const handleInputChanges=(event)=>{
@@ -98,9 +98,9 @@ function Character() {
   return (
     <div className="App">
       <header className="App-header">
-       <h1>Student Profile:</h1>
+       <h1>Character Profile:</h1>
        <h5>{values && values.name}</h5>
-       <button onClick={()=>deleteStudent()}>Delete Student</button>
+       <button onClick={()=>deleteCharacter()}>Delete Character</button>
        <Link to="/">Home</Link>
        <Link to="/dashboard">Dashboard</Link>
        <form onSubmit={(event)=>handleSubmit(event)}>
