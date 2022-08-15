@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import '../App.css';
 
 function Dashboard() {
-  const [students, setStudents]=useState(null);
+  const [characters, setCharacters]=useState(null);
   const [loading, setLoading]=useState(false);
   const [error, setError]=useState(null);
 
@@ -18,7 +18,7 @@ function Dashboard() {
   let ignore=false;
   useEffect(()=>{
     if (!ignore) {
-      getStudents();
+      getCharacters();
     }
 
     return ()=>{
@@ -26,14 +26,14 @@ function Dashboard() {
     }
   }, [])
 
-  const getStudents = async ()=>{
+  const getCharacters = async ()=>{
     setLoading(true)
     try {
       await fetch(`${API_BASE}/characters`)
       .then(res=>res.json())
       .then(data=>{
         console.log(data);
-        setStudents(data)
+        setCharacters(data)
       })
     } catch (error) {
       setError(error.message||"Unexpected Error")
@@ -42,7 +42,7 @@ function Dashboard() {
     }
   }
 
-  const createStudent=async()=>{
+  const createCharacter=async()=>{
     try {
       await fetch(`${API_BASE}/characters/`,{
         method:"POST",
@@ -51,7 +51,7 @@ function Dashboard() {
         },
         body:JSON.stringify(values)
       })
-      .then(()=>getStudents())
+      .then(()=>getCharacters())
     } catch (error) {
       setError(error.message||"Unexpected Error")
     } finally{
@@ -61,7 +61,7 @@ function Dashboard() {
 
   const handleSubmit=(event)=>{
     event.preventDefault();
-    createStudent();
+    createCharacter();
   }
 
   const handleInputChanges=(event)=>{
@@ -78,9 +78,9 @@ function Dashboard() {
        <Link to="/">Home</Link>
        <ul>
         {
-          students && students.map(student=>{
-            return <li key={student._id}>
-              <Link to={`/students/${student._id}`}>{student.name}</Link>
+          characters && characters.map(character=>{
+            return <li key={character._id}>
+              <Link to={`/characters/${character._id}`}>{character.name}</Link>
             </li>
           })
         }
