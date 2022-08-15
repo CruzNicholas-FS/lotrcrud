@@ -48,7 +48,7 @@ router.patch("/:id", getCharacter, async (req, res)=>{
     if (req.body.name!=null) {
         res.character.name=req.body.name
     }
-    if (req.body.class!=null) {
+    if (req.body.race!=null) {
         res.character.race=req.body.race
     }
     try {
