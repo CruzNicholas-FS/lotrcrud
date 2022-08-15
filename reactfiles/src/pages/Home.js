@@ -6,7 +6,7 @@ function Home() {
     <div className="App">
       <header className="App-header">
        <h1>Lord of the Rings Characters</h1>
-       <Link to="/dashboard">Dashboard</Link>
+       <Link to="/dashboard" className='link'>Dashboard</Link>
       </header>
     </div>
   );

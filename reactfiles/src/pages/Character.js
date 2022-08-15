@@ -101,8 +101,8 @@ function Character() {
        <h1>Character Profile:</h1>
        <h5>{values && values.name}</h5>
        <button onClick={()=>deleteCharacter()}>Delete Character</button>
-       <Link to="/">Home</Link>
-       <Link to="/dashboard">Dashboard</Link>
+       <Link to="/" className="link">Home</Link>
+       <Link to="/dashboard" className="link">Dashboard</Link>
        <form onSubmit={(event)=>handleSubmit(event)}>
         <label>Name: <input type="text" name="name" value={values.name} onChange={handleInputChanges} /></label>
         <label>Race: <input type="text" name="race" value={values.race} onChange={handleInputChanges} /></label>

@@ -1,10 +1,43 @@
+@font-face {
+  font-family: 'Morris Roman Black';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Morris Roman Black'), url('../../MorrisRomanBlack.woff') format('woff');
+  }
+
 .App {
   text-align: center;
+  font-family:"Morris Roman Black", serif
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+
+.link{
+  text-decoration:none;
+  color:#9daf5d;
+  margin:.5em 0;
+}
+
+.link:hover{
+  color:#C1D771;
+}
+
+li{
+  list-style:none;
+  margin: .5em 0 .5em -1.5em;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items:center;
+}
+
+input{
+  margin-bottom:1em;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -14,7 +47,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color:#855437;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
