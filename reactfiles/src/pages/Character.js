@@ -9,7 +9,7 @@ function Character() {
 
   const [values, setValues]=useState({
     name:"",
-    class:""
+    race:""
   })
 
   const {id}=useParams();
