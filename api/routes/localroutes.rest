@@ -1,0 +1,29 @@
+GET http://localhost:8000/students/
+
+###
+
+GET http://localhost:8000/students/62f4137afdc545e773d4fd9d
+
+###
+
+POST http://localhost:8000/students
+Content-Type: application/json
+
+{
+    "name":"Nicholas",
+    "class":"DWA"
+}
+
+###
+
+DELETE  http://localhost:8000/students/62f4137afdc545e773d4fd9d
+
+###
+
+PATCH http://localhost:8000/students/62f416e9134e0b85aeed242f
+Content-Type: application/json
+
+{
+    "name":"Tristen",
+    "class":"Intro to Web Dev"
+}
