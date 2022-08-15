@@ -1,0 +1,32 @@
+{
+  "name": "lotrcrud",
+  "version": "1.0.0",
+  "engines": {
+    "node": "16.15.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "install-reactjs": "npm install --prefix reactfiles",
+    "install-api": "npm install --prefix api",
+    "build-reactjs": "npm run build --prefix reactfiles",
+    "heroku-postbuild": "concurrently \"npm:install-*\"; concurrently \"npm:build-*\";",
+    "start": "npm start --prefix api",
+    "dev:react": "concurrently --raw \"npm run api\" \"npm run react\"",
+    "react": "cd reactfiles && npm run start",
+    "api": "cd api; nodemon server.js"
+  },
+  "dependencies": {
+    "concurrently": "^7.3.0",
+    "react-router-dom": "^6.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CruzNicholas-FS/lotrcrud.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CruzNicholas-FS/lotrcrud/issues"
+  },
+  "homepage": "https://github.com/CruzNicholas-FS/lotrcrud#readme"
+}

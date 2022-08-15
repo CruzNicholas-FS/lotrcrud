@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 9000;
 
 const DATABASE_URL=process.env.DATABASE_URL;
 
@@ -20,10 +20,10 @@ const characterRouter = require("./routes/characters");
 app.use(express.json());
 app.use("/api/v1/characters", characterRouter);
 
-app.use(express.static(path.join(__dirname, "../reactjs/build")))
+app.use(express.static(path.join(__dirname, "../reactfiles/build")))
 
 app.get("/*", (req, res)=>{
-    res.sendFile(path.join(__dirname, "../reactjs/build", "index.html"))
+    res.sendFile(path.join(__dirname, "../reactfiles/build", "index.html"))
 })
 
 app.listen(PORT, ()=>{
