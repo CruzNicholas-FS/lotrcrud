@@ -75,12 +75,12 @@ function Dashboard() {
     <div className="App">
       <header className="App-header">
        <h1>Characters:</h1>
-       <Link to="/">Home</Link>
+       <Link to="/" className="link">Home</Link>
        <ul>
         {
           characters && characters.map(character=>{
             return <li key={character._id}>
-              <Link to={`/characters/${character._id}`}>{character.name}</Link>
+              <Link to={`/characters/${character._id}`} className="link">{character.name}</Link>
             </li>
           })
         }
