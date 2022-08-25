@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import '../App.css';
+import charactersService from "../services/characters.service";
 
 function Character() {
   const [characters, setCharacters]=useState(null);
@@ -15,13 +16,14 @@ function Character() {
   const {id}=useParams();
   const navigate=useNavigate();
 
-  const API_BASE=process.env.NODE_ENV==="development"
-  ? "http://localhost:9000/api/v1" : process.env.REACT_APP_BASE_URL
-
   let ignore=false;
   useEffect(()=>{
     if (!ignore) {
-      getCharacter();
+      charactersService.getSpecificCharacter(id)
+      .then(res=>setValues({name:res.data.name, race:res.data.race}))
+      .catch(error=>{
+        setError(error.message||"Unexpected Error")
+      })
     }
 
     return ()=>{
@@ -29,30 +31,11 @@ function Character() {
     }
   }, [])
 
-  const getCharacter = async ()=>{
-    setLoading(true)
-    try {
-      await fetch(`${API_BASE}/characters/${id}`)
-      .then(res=>res.json())
-      .then(data=>{
-        console.log(data);
-        setValues({name:data.name, race:data.race})
-      })
-    } catch (error) {
-      setError(error.message||"Unexpected Error")
-    } finally{
-      setLoading(false)
-    }
-  }
-
   const deleteCharacter=async()=>{
     try {
-      await fetch(`${API_BASE}/characters/${id}`,{
-        method:"DELETE"
-      })
-      .then(res=>res.json())
-      .then(data=>{
-        setCharacters(data)
+      await charactersService.deleteCharacter(id)
+      .then(res=>{
+        setCharacters(res.data)
         navigate("/dashboard", {replace:true})
       })
     } catch (error) {
@@ -64,16 +47,9 @@ function Character() {
 
   const updateCharacter=async()=>{
     try {
-      await fetch(`${API_BASE}/characters/${id}`,{
-        method:"PATCH",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify(values)
-      })
-      .then(res=>res.json())
-      .then(data=>{
-        setCharacters(data)
+      await charactersService.updateCharacter(id, values.name, values.race)
+      .then(res=>{
+        setCharacters(res.data)
         navigate("/dashboard", {replace:true})
       })
     } catch (error) {

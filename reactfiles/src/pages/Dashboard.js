@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import '../App.css';
+import authService from "../services/auth.service";
+import charactersService from "../services/characters.service";
 
 function Dashboard() {
   const [characters, setCharacters]=useState(null);
@@ -12,29 +14,29 @@ function Dashboard() {
     race:""
   })
 
+  const navigate=useNavigate();
+
   const API_BASE=process.env.NODE_ENV==="development"
   ? "http://localhost:9000/api/v1" : process.env.REACT_APP_BASE_URL
 
   let ignore=false;
   useEffect(()=>{
-    if (!ignore) {
-      getCharacters();
+    charactersService.getAllPrivateCharacters()
+    .then(response=>{setCharacters(response.data)},
+    error=>{console.log("Secured Page Error: ", error.response)
+      if(error.response && error.response.status===403){
+        authService.logout();
+        navigate("/login")
+      }
     }
-
-    return ()=>{
-      ignore = true
-    }
+    )
   }, [])
 
   const getCharacters = async ()=>{
     setLoading(true)
     try {
-      await fetch(`${API_BASE}/characters`)
-      .then(res=>res.json())
-      .then(data=>{
-        console.log(data);
-        setCharacters(data)
-      })
+      await charactersService.getAllPrivateCharacters()
+      .then((response)=>setCharacters(response.data))
     } catch (error) {
       setError(error.message||"Unexpected Error")
     } finally{
@@ -44,13 +46,7 @@ function Dashboard() {
 
   const createCharacter=async()=>{
     try {
-      await fetch(`${API_BASE}/characters/`,{
-        method:"POST",
-        headers:{
-          "Content-Type":"application/json"
-        },
-        body:JSON.stringify(values)
-      })
+      await charactersService.createCharacter(values.name, values.race)
       .then(()=>getCharacters())
     } catch (error) {
       setError(error.message||"Unexpected Error")

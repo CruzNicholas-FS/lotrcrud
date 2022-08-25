@@ -1,4 +1,9 @@
 const express = require("express");
+const passport = require("passport");
+
+const passportService=require("./services/passport");
+
+const protectedRoute = passport.authenticate("jwt", {session:false})
 require("dotenv").config();
 const mongoose=require("mongoose");
 const path=require("path");
@@ -17,8 +22,10 @@ db.on("error", error=>console.error(error));
 db.once("open", ()=>console.log("Database Connection Established"));
 
 const characterRouter = require("./routes/characters");
+const authRouter=require("./routes/auth");
 app.use(express.json());
-app.use("/api/v1/characters", characterRouter);
+app.use("/api/v1/characters", protectedRoute, characterRouter);
+app.use("/api/v1/auth", authRouter);
 
 app.use(express.static(path.join(__dirname, "../reactfiles/build")))
 
