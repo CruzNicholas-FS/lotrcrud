@@ -28,6 +28,9 @@ function Dashboard() {
         authService.logout();
         navigate("/login")
       }
+      if(error.response && error.response.status===401){
+        navigate("/unauthorized")
+      }
     }
     )
   }, [])
@@ -39,6 +42,7 @@ function Dashboard() {
       .then((response)=>setCharacters(response.data))
     } catch (error) {
       setError(error.message||"Unexpected Error")
+      console.log(error);
     } finally{
       setLoading(false)
     }

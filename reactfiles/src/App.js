@@ -4,11 +4,13 @@ import Dashboard from "./pages/Dashboard";
 import Character from "./pages/Character";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login"
+import Unauthorized from "./pages/Unauthorized";
 
 function App() {
   return (
     <Router>
       <Routes>
+      <Route path="/unauthorized" exact element={<Unauthorized/>} />
       <Route path="/signup" exact element={<SignUp/>} />
       <Route path="/login" exact element={<Login/>} />
       <Route path="/characters/:id" exact element={<Character/>} />

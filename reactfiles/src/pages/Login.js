@@ -22,6 +22,8 @@ function Login() {
     <div className="App">
       <header className="App-header">
        <h1>Login</h1>
+       <Link to="/signup" className='link'>SignUp</Link>
+       <Link to="/" className='link'>Home</Link>
        <Link to="/dashboard" className='link'>Dashboard</Link>
        <form onSubmit={handleLogin}>
           <input type="text" placeholder="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
